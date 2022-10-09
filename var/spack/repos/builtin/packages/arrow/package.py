@@ -91,6 +91,7 @@ class Arrow(CMakePackage, CudaPackage):
     variant("zlib", default=False, description="Build support for zlib (gzip) compression")
     variant("zstd", default=False, description="Build support for ZSTD compression")
     variant("flight", default=False, description="Build the Arrow Flight extensions")
+    variant("dataset", default=False, description="Build the Arrow Dataset extensions")
 
     root_cmakelists_dir = "cpp"
 
@@ -145,6 +146,7 @@ class Arrow(CMakePackage, CudaPackage):
         args.append(self.define_from_variant("ARROW_WITH_ZLIB", "zlib"))
         args.append(self.define_from_variant("ARROW_WITH_ZSTD", "zstd"))
         args.append(self.define_from_variant("ARROW_FLIGHT", "flight"))
+        args.append(self.define_from_variant("ARROW_DATASET", "dataset"))
 
         with when("@:8"):
             for dep in ("flatbuffers", "rapidjson", "snappy", "zlib", "zstd"):
